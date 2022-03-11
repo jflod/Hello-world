@@ -1,0 +1,37 @@
+assembly-versioning-scheme: MajorMinorPatch
+mode: ContinuousDeployment
+tag-prefix: '[vV]'
+continuous-delivery-fallback-tag: ''
+branches:
+  master:
+    tag: ''
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+  release:
+    regex: releases?[/-]
+    tag: beta
+    increment: Patch
+  feature:
+    regex: features?[/-]
+    tag: useBranchName
+    increment: Inherit
+  hotfix:
+    regex: hotfix(es)?[/-]
+    increment: Patch
+    tag: beta
+  support:
+    regex: support[/-]
+    tag: ''
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+  develop:
+    regex: dev(elop)?(ment)?$
+    mode: ContinuousDeployment
+    tag: unstable
+    increment: Major
+    track-merge-target: true
+  pull-request:
+    regex: (pull|pull\-requests|pr)[/-]
+    tag: PullRequest
+    increment: Inherit
+    tag-number-pattern: '[/-](?<number>\d+)[-/]'
